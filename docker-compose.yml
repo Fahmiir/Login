@@ -20,7 +20,7 @@ services:
 
   app:
     build: .
-    container_name: login-app
+    container_name: login-full
     ports:
       - "8081:8081"
     environment:
