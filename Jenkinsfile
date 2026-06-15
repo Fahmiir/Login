@@ -15,6 +15,13 @@ pipeline {
             }
         }
 
+
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+
         stage('Deploy') {
             steps {
                 bat 'docker rm -f login-full'
