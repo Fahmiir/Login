@@ -4,6 +4,7 @@ import com.example.Login.dto.AuthResponse;
 import com.example.Login.dto.LoginRequest;
 import com.example.Login.dto.RegisterRequest;
 import com.example.Login.entity.User;
+import com.example.Login.repository.RefreshTokenRepository;
 import com.example.Login.repository.UserRepository;
 import com.example.Login.security.JwtUtil;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,9 @@ public class AuthServiceImplTest {
 
     @Mock
     private AuthenticationManager authenticationManager;
+
+    @Mock
+    private RefreshTokenRepository refreshTokenRepository;
 
     @Test
     void register_Should_save_user() {
