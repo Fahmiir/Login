@@ -5,7 +5,7 @@ async function loadProfile(){
 
     const response =
         await fetch(
-            "http://localhost:8082/profile",
+            "http://localhost:8082/api/profile",
             {
 
                 headers:{

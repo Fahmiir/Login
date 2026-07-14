@@ -1,7 +1,7 @@
 async function register(){
 
     await fetch(
-        "http://localhost:8082/auth/register",
+        "http://localhost:8082/api/auth/register",
         {
 
             method:"POST",

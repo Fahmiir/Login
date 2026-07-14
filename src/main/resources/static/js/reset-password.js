@@ -1,41 +1,44 @@
-async function resetPassword(){
+async function resetPassword() {
 
-    const token =
-        document.getElementById("token").value;
+    const params = new URLSearchParams(window.location.search);
 
-    const password =
-        document.getElementById("password").value;
+    const token = params.get("token");
 
-    const response =
-        await fetch(
-            "http://localhost:8082/auth/reset-password",
-            {
+    const newPassword =
+        document.getElementById("newPassword").value;
 
-                method:"POST",
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
 
-                headers:{
-                    "Content-Type":"application/json"
-                },
-
-                body:JSON.stringify({
-
-                    token:token,
-                    newPassword:password
-
-                })
-
-            });
-
-    if(response.ok){
-
-        alert("Password Reset Success");
-
-        window.location.href="login.html";
-
-    }else{
-
-        alert("Reset Failed");
-
+    if (newPassword !== confirmPassword) {
+        alert("Password dan Confirm Password tidak sama.");
+        return;
     }
 
+    const response = await fetch(
+        "/api/auth/reset-password",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                token: token,
+                newPassword: newPassword
+            })
+        });
+
+    if (response.ok) {
+
+        alert("Password berhasil direset.");
+
+        window.location.href = "/api/login.html";
+
+    } else {
+
+        alert("Reset password gagal.");
+
+    }
 }

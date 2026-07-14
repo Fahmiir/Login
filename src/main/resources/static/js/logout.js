@@ -4,7 +4,7 @@ async function logout(){
         localStorage.getItem("token");
 
     await fetch(
-        "http://localhost:8082/auth/logout",
+        "http://localhost:8082/api/auth/logout",
         {
 
             method:"POST",

@@ -133,32 +133,31 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void forgotPassword(ForgotPasswordRequest request) {
 
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(()->new RuntimeException());
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User tidak ditemukan"));
 
-        passwordResetTokenRepository.deleteByUser(user);
+        PasswordResetToken resetToken =
+                passwordResetTokenRepository.findByUser(user)
+                        .orElse(new PasswordResetToken());
 
         String token = UUID.randomUUID().toString();
 
-        PasswordResetToken resetToken =
-                PasswordResetToken.builder()
-                        .token(token)
-                        .user(user)
-                        .expiryDate(
-                                LocalDateTime.now().plusMinutes(15)
-                        )
-                        .build();
+        resetToken.setUser(user);
+        resetToken.setToken(token);
+        resetToken.setExpiryDate(
+                LocalDateTime.now().plusMinutes(15)
+        );
 
         passwordResetTokenRepository.save(resetToken);
 
         String resetLink =
-                "http://localhost:3000/reset-password?token="
+                "http://localhost:8082/api/reset-password.html?token="
                         + token;
 
         emailService.sendForgotPasswordEmail(
                 user.getEmail(),
                 resetLink
-        );
-    }
+        );    }
 
     @Override
     @Transactional
@@ -170,9 +169,9 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("Token Expired");
         }
 
-        if(!request.getNewPassword().equals(request.getConfirmPassword())){
-            throw new RuntimeException("Password Confirmation mismatch");
-        }
+//        if(!request.getNewPassword().equals(request.getConfirmPassword())){
+//            throw new RuntimeException("Password Confirmation mismatch");
+//        }
 
         User user = resetToken.getUser();
 

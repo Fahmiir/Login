@@ -7,7 +7,7 @@ async function login(){
         document.getElementById("password").value;
 
     const response =
-        await fetch("http://localhost:8082/auth/login",{
+        await fetch("http://localhost:8082/api/auth/login",{
 
             method:"POST",
 

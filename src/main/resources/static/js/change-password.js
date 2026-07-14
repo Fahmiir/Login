@@ -11,7 +11,7 @@ async function changePassword(){
 
     const response =
         await fetch(
-            "http://localhost:8082/auth/change-password",
+            "http://localhost:8082/api/auth/change-password",
             {
 
                 method:"POST",

@@ -44,12 +44,14 @@ public class SecurityConfig {
                                 "/forgot-password.html",
                                 "/reset-password.html",
                                 "/change-password.html",
+                                "/profile.html",
                                 "/css/**",
                                 "/js/**",
                                 "/auth/register",
                                 "/auth/login",
                                 "/auth/forgot-password",
-                                "/auth/reset-password"
+                                "/auth/reset-password",
+                                "/profile"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

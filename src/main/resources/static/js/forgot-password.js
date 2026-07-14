@@ -5,7 +5,7 @@ async function forgotPassword(){
 
     const response =
         await fetch(
-            "http://localhost:8082/auth/forgot-password",
+            "http://localhost:8082/api/auth/forgot-password",
             {
 
                 method:"POST",
@@ -21,6 +21,12 @@ async function forgotPassword(){
                 })
 
             });
+
+    console.log(response.status);
+
+    const text = await response.text();
+
+    console.log(text);
 
     if(response.ok){
 
